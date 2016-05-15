@@ -1,0 +1,28 @@
+{
+	"name": "sde2json",
+	"version": "0.2.0",
+	"private": true,
+	"description": "Convert EVE's SDE to json",
+	"scripts": {
+		"start": "node index.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Xyjax",
+	"contributors": [{
+		"name": "nezroy",
+		"email": "nezroy@gmail.com"
+	}],
+	"license": "ISC",
+	"dependencies": {
+		"winston": "2.2.x",
+		"nconf": "0.8.x",
+		"eveapi": "0.3.x",
+		"underscore": "1.8.x",
+		"bluebird": "3.3.x",
+		"js-yaml": "3.6.x"
+	},
+	"engines": {
+		"node": ">=0.12.7",
+		"npm": ">=2.11.0"
+	}
+}
