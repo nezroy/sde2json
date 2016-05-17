@@ -2,10 +2,14 @@ var LOG = require("./log"),
 	nconf = require("nconf"),
 	path = require("path"),
 	fs = require("fs"),
-	//yaml = require("js-yaml"),
 	G = require("./defs"),
+	execSync = require("child_process").execSync,
 	crp = require("./tables/crp"),
-	dgm = require("./tables/dgm");
+	dgm = require("./tables/dgm"),
+	inv = require("./tables/inv"),
+	map = require("./tables/map"),
+	ram = require("./tables/ram"),
+	sta = require("./tables/sta");
 
 var opts = {
 	f: null,
@@ -19,7 +23,6 @@ nconf.argv().defaults({
 	out: null,
 	prefix: "all",
 	listfix: false,
-	jsonp: true,
 	gzip: true
 });
 
@@ -79,7 +82,24 @@ try {
 		crp.create(opts);
 	}
 	if (prefix == "all" || prefix == "dgm") {
+		fs.writeSync(opts.f, ",\n");
 		dgm.create(opts);
+	}
+	if (prefix == "all" || prefix == "inv") {
+		fs.writeSync(opts.f, ",\n");
+		inv.create(opts);
+	}
+	if (prefix == "all" || prefix == "map") {
+		fs.writeSync(opts.f, ",\n");
+		map.create(opts);
+	}
+	if (prefix == "all" || prefix == "ram") {
+		fs.writeSync(opts.f, ",\n");
+		ram.create(opts);
+	}
+	if (prefix == "all" || prefix == "sta") {
+		fs.writeSync(opts.f, ",\n");
+		sta.create(opts);
 	}
 } catch (ex) {
 	LOG.error(ex);
@@ -88,3 +108,17 @@ try {
 fs.writeSync(opts.f, "\n}\n"); // end of tables
 fs.writeSync(opts.f, "}\n");
 fs.closeSync(opts.f);
+
+if (nconf.get("gzip")) {
+	LOG.info("compressing files");
+	var i, cmd, file, dirs = fs.readdirSync(opts.out);
+	for (i = 0; i < dirs.length; i++) {
+		file = dirs[i];
+		if (path.extname(file) !== ".json") continue;
+		LOG.info("compress:", file);
+		cmd = "/usr/bin/7z a -mx=9 -tgzip " + file + ".gz " + file;
+		execSync(cmd, {
+			cwd: opts.out
+		});
+	}
+}
