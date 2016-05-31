@@ -116,7 +116,8 @@ if (nconf.get("gzip")) {
 		file = dirs[i];
 		if (path.extname(file) !== ".json") continue;
 		LOG.info("compress:", file);
-		cmd = "/usr/bin/7z a -mx=9 -tgzip " + file + ".gz " + file;
+		//cmd = "/usr/bin/7z a -mx=9 -tgzip " + file + ".gz " + file;
+		cmd = "\"C:\\Program Files\\7-Zip\\7z.exe\" a -mx=9 -tgzip " + file + ".gz " + file;
 		execSync(cmd, {
 			cwd: opts.out
 		});
