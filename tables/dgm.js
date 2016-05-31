@@ -14,6 +14,8 @@ function create(opts) {
 	utils.tblsep(f, opts);
 	create_chrFactions(f, opts);
 	utils.tblsep(f, opts);
+	create_chrRaces(f, opts);
+	utils.tblsep(f, opts);
 	create_chrCertificates(f, opts);
 	utils.tblsep(f, opts);
 	create_eveUnits(f, opts);
@@ -86,6 +88,18 @@ function create_chrFactions(f, opts) {
 		cols: ["factionName", "description", "raceIDs", "solarSystemID", "corporationID",
 			"sizeFactor", "stationCount", "stationSystemCount", "militiaCorporationID", "iconID"
 		],
+		typ: "sql",
+		ydoc: ydoc
+	}, utils.nestcol_cb);
+}
+
+function create_chrRaces(f, opts) {
+	var ydoc = yaml.safeLoad(fs.readFileSync(path.join(opts.sde, "bsd/chrRaces.yaml"), "utf8"));
+	utils.create_table(f, opts, {
+		tbl: "chrRaces",
+		dat: "dgmMeta",
+		key: "raceID",
+		cols: ["raceName", "description", "iconID", "shortDescription"],
 		typ: "sql",
 		ydoc: ydoc
 	}, utils.nestcol_cb);

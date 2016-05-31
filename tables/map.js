@@ -393,7 +393,7 @@ function parse_solarsystem(dir, regdir, constdir, sysdir, opts, opts2, regionID,
 	//system.luminosity = ydoc.luminosity;
 	system.radius = ydoc.radius;
 	system.regional = ydoc.regional;
-	system.security = ydoc.security;
+	system.security = Math.round(ydoc.security * 1000000) / 1000000;
 	system.securityApparent = Math.round(ydoc.security * 10) / 10;
 	system.securityClass = ydoc.securityClass;
 	//system.sunTypeID = ydoc.sunTypeID;
