@@ -19,7 +19,7 @@
 		"eveapi": "0.3.x",
 		"underscore": "1.8.x",
 		"bluebird": "3.3.x",
-		"js-yaml": "3.6.x",
+		"js-yaml": "3.13.x",
         "clone": "1.0.x"
 	},
 	"engines": {
